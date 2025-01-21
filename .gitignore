@@ -9,3 +9,8 @@ cmake_install.cmake
 
 #cmake --build
 Debug/
+
+.ninja_deps
+.ninja_log
+TestAPI.exe
+*.ninja
