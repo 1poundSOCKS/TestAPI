@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.25)
 
 project(TestAPI)
 
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 23)
 
 include(source/CMakeLists.txt)
 foreach(FILE ${FILES})
