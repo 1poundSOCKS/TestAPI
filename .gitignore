@@ -1,6 +1,6 @@
 # cmake
 
-CMakeFiles/
+/CMakeFiles/
 *.vcxproj
 *.vcxproj.filters
 CMakeCache.txt
@@ -10,7 +10,14 @@ cmake_install.cmake
 #cmake --build
 Debug/
 
+# ninja build
 .ninja_deps
 .ninja_log
 TestAPI.exe
 *.ninja
+
+# gsoap
+source/SOAP/*.xml
+source/SOAP/*.h
+source/SOAP/*.cpp
+source/SOAP/*.nsmap
