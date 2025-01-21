@@ -15,7 +15,12 @@ foreach(FILE ${FILES})
   set(source ${source} source/${FILE})
 endforeach()
 
-add_executable(TestAPI ${source} ${framework} ${collisions} ${geometry} ${level_container} ${level_objects} ${level_data} ${play_screen} ${renderers} ${user_interface})
+include(source/SOAP/CMakeLists.txt)
+foreach(FILE ${FILES})
+  set(source ${source} source/SOAP/${FILE})
+endforeach()
+
+add_executable(TestAPI ${source} ${GSOAP_HOME}/gsoap-2.8/gsoap/stdsoap2.cpp)
 
 add_custom_command(
   TARGET TestAPI
@@ -30,7 +35,7 @@ add_custom_command(
 )
 
 if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
-  target_compile_options(TestAPI PRIVATE /MP /MTd /Zi /W4 /WX /fp:fast)
+  target_compile_options(TestAPI PRIVATE /MP /MTd /Zi /W3 /WX /fp:fast)
   target_link_options(TestAPI PRIVATE /SUBSYSTEM:CONSOLE)
 endif()
 
