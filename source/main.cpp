@@ -1,4 +1,5 @@
 #include "pch.h"
+#include "soapspProxy.h"
 
 auto main(int argc, char* argv[]) -> int
 {

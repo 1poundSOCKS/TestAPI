@@ -37,7 +37,8 @@ endif()
 target_precompile_headers(TestAPI PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/source/pch.h)
 
 target_include_directories(TestAPI PRIVATE
-  ${CMAKE_CURRENT_SOURCE_DIR}/source
+  ${CMAKE_CURRENT_SOURCE_DIR}/source/SOAP
+  ${GSOAP_HOME}/gsoap-2.8/gsoap
 )
 
 #target_link_libraries(TestAPI PRIVATE LIBCMTD.lib)
