@@ -10,7 +10,11 @@ auto main(int argc, char* argv[]) -> int
   std::cout << argc << '\n';
   std::cout << argv[0] << '\n';
 
+  ns2__spLogin ns2__LoginRequest;
+  ns2__LoginResponse ns2__LoginResponse_;
+  
   spProxy proxy;
+  proxy.Login(&ns2__LoginRequest, ns2__LoginResponse_);
 
   return 0;
 }
