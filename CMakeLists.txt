@@ -13,7 +13,7 @@ add_executable(TestAPI ${source} ${framework} ${collisions} ${geometry} ${level_
 
 if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
   target_compile_options(TestAPI PRIVATE /MP /MTd /Zi /W4 /WX /fp:fast)
-  target_link_options(TestAPI PRIVATE /SUBSYSTEM:WINDOWS)
+  target_link_options(TestAPI PRIVATE /SUBSYSTEM:CONSOLE)
 endif()
 
 target_precompile_headers(TestAPI PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/source/pch.h)
@@ -21,3 +21,5 @@ target_precompile_headers(TestAPI PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/source/pch
 target_include_directories(TestAPI PRIVATE
   ${CMAKE_CURRENT_SOURCE_DIR}/source
 )
+
+#target_link_libraries(TestAPI PRIVATE LIBCMTD.lib)
