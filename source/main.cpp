@@ -7,14 +7,15 @@
 
 auto main(int argc, char* argv[]) -> int
 {
+  for( int arg = 0; arg < argc; ++arg )
+  {
+    std::cout << argv[arg] << '\n';
+  }
+
   if( argc != 4 )
   {
     return 0;
   }
-
-  std::cout << argv[1] << '\n';
-  std::cout << argv[2] << '\n';
-  std::cout << argv[3] << '\n';
 
   struct soap* soap = soap_new();
 
@@ -27,7 +28,7 @@ auto main(int argc, char* argv[]) -> int
   ns2__LoginResponse ns2__LoginResponse_;
 
   spProxy proxy;
-  proxy.Login(&ns2__LoginRequest, ns2__LoginResponse_);
+  std::cout << proxy.Login(&ns2__LoginRequest, ns2__LoginResponse_) << '\n';
 
   soap_destroy(soap);
   soap_end(soap);

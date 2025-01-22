@@ -6,7 +6,7 @@
       "type": "cppvsdbg",
       "request": "launch",
       "program": "${workspaceFolder}/Debug/TestAPI.exe",
-      "args": ["user password sp_password"],
+      "args": ["user", "password", "sp_password"],
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}",
       "environment": []
