@@ -1,3 +1,3 @@
 set(FILES
-  main.cpp
+  login.cpp
 )
