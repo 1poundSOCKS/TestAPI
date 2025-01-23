@@ -6,7 +6,7 @@
       "type": "cppvsdbg",
       "request": "launch",
       "program": "${workspaceFolder}/Debug/TestAPI.exe",
-      "args": ["http://localhost:9542", "user", "password", "sp_password"],
+      "args": ["http://localhost:9542", "mc", "mc", "m.coburn"],
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}",
       "environment": []

@@ -5,41 +5,72 @@
 #include "soapspProxy.h"
 #include "sp.nsmap"
 
+struct session_info
+{
+  session_info(soap* soap, const char* url) : soap { soap }, url { url }
+  {
+  }
+
+  ~session_info()
+  {
+    soap_destroy(soap);
+    soap_end(soap);
+    soap_free(soap);
+  }
+
+  soap* soap;
+  std::string url;
+};
+
+struct login_response
+{
+  int httpResponse;
+  std::optional<unsigned int> apiResponse;
+};
+
+auto CallLogin(session_info& sessionInfo, const char* databaseUser, const char* password, const char* spUser) -> login_response
+{
+  ns2__spLogin ns2__LoginRequest;
+  ns2__LoginRequest.databaseUser = databaseUser;
+  ns2__LoginRequest.password = password;
+  ns2__LoginRequest.spUser = spUser;
+  ns2__LoginRequest.soap = sessionInfo.soap;
+  
+  ns2__LoginResponse ns2__LoginResponse_;
+
+  login_response loginResponse;
+
+  spProxy proxy;
+  loginResponse.httpResponse = proxy.Login(sessionInfo.url.c_str(), "", &ns2__LoginRequest, ns2__LoginResponse_);
+
+  if( loginResponse.httpResponse == 0 )
+  {
+    loginResponse.apiResponse = ns2__LoginResponse_.result->code;
+  }
+
+  return loginResponse;
+}
+
 auto main(int argc, char* argv[]) -> int
 {
   for( int arg = 0; arg < argc; ++arg )
   {
-    std::cout << argv[arg] << '\n';
+    std::cout << argv[arg] << ' ';
   }
+
+  std::cout << '\n';
 
   if( argc != 5 )
   {
     return 0;
   }
 
-  struct soap* soap = soap_new();
+  session_info sessionInfo { soap_new(), argv[1] };
 
-  std::string url = argv[1];
-  ns2__spLogin ns2__LoginRequest;
-  ns2__LoginRequest.databaseUser = argv[2];
-  ns2__LoginRequest.password = argv[3];
-  ns2__LoginRequest.spUser = argv[4];
-  ns2__LoginRequest.soap = soap;
-  
-  ns2__LoginResponse ns2__LoginResponse_;
+  auto loginResponse = CallLogin(sessionInfo, argv[2], argv[3], argv[4]);
 
-  spProxy proxy;
-  int httpResult = proxy.Login(url.c_str(), "", &ns2__LoginRequest, ns2__LoginResponse_);
-  std::cout << std::string_view("HTTP result: ") << httpResult << '\n';
-
-  if( httpResult == 0 )
-  {
-    std::cout << std::string_view("Logon result: ") << ns2__LoginResponse_.result->code << '\n';
-  }
-
-  soap_destroy(soap);
-  soap_end(soap);
-  soap_free(soap);
+  std::cout << std::string_view("HTTP result: ") << loginResponse.httpResponse << '\n';
+  loginResponse.apiResponse ? std::cout << std::string_view("API result: ") << *loginResponse.apiResponse << '\n' : std::cout << std::string_view("API result missing") << '\n';
 
   return 0;
 }
