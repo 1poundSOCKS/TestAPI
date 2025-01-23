@@ -29,7 +29,13 @@ auto main(int argc, char* argv[]) -> int
   ns2__LoginResponse ns2__LoginResponse_;
 
   spProxy proxy;
-  std::cout << proxy.Login(url.c_str(), "", &ns2__LoginRequest, ns2__LoginResponse_) << '\n';
+  int httpResult = proxy.Login(url.c_str(), "", &ns2__LoginRequest, ns2__LoginResponse_);
+  std::cout << std::string_view("HTTP result: ") << httpResult << '\n';
+
+  if( httpResult == 0 )
+  {
+    std::cout << std::string_view("Logon result: ") << ns2__LoginResponse_.result->code << '\n';
+  }
 
   soap_destroy(soap);
   soap_end(soap);
