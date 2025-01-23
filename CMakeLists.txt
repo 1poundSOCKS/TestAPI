@@ -25,7 +25,7 @@ add_custom_command(
 add_custom_command(
   TARGET TestAPI
   PRE_BUILD
-  COMMAND gsoap-2.8/bin/win64/soapcpp2 -I ${GSOAP_HOME}/import -j source/SOAP/sp.h -dsource/SOAP
+  COMMAND gsoap-2.8/bin/win64/soapcpp2 -I gsoap-2.8/import -j source/SOAP/sp.h -dsource/SOAP
 )
 
 if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
@@ -36,6 +36,7 @@ endif()
 target_precompile_headers(TestAPI PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/source/pch.h)
 
 target_include_directories(TestAPI PRIVATE
+  ${CMAKE_CURRENT_SOURCE_DIR}/gsoap-2.8
+  ${CMAKE_CURRENT_SOURCE_DIR}/gsoap-2.8/import
   ${CMAKE_CURRENT_SOURCE_DIR}/source/SOAP
-  ${GSOAP_HOME}
 )
