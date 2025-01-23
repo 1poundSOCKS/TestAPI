@@ -46,7 +46,7 @@ auto main(int argc, char* argv[]) -> int
 
   std::cout << '\n';
 
-  if( argc != 5 )
+  if( argc != 6 )
   {
     return 0;
   }
@@ -54,7 +54,7 @@ auto main(int argc, char* argv[]) -> int
   session_info sessionInfo { soap_new(), argv[1] };
   auth_info authInfo { argv[2], argv[3], argv[4] };
 
-  auto getJobResponse = CallGetJob(sessionInfo, authInfo, "autoGUI_ob_1");
+  auto getJobResponse = CallGetJob(sessionInfo, authInfo, argv[5]);
 
   std::cout << std::string_view("HTTP result: ") << getJobResponse.httpResponse << '\n';
   getJobResponse.apiResponse ? std::cout << std::string_view("API result: ") << *getJobResponse.apiResponse << '\n' : std::cout << std::string_view("API result missing") << '\n';
