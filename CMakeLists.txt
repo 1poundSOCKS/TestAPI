@@ -9,6 +9,11 @@ foreach(FILE ${FILES})
   set(source ${source} source/SOAP/${FILE})
 endforeach()
 
+include(source/common/CMakeLists.txt)
+foreach(FILE ${FILES})
+  set(source ${source} source/common/${FILE})
+endforeach()
+
 add_executable(Login source/login.cpp ${source} ${CMAKE_CURRENT_SOURCE_DIR}/gsoap-2.8/stdsoap2.cpp)
 
 add_executable(GetJob source/getjob.cpp ${source} ${CMAKE_CURRENT_SOURCE_DIR}/gsoap-2.8/stdsoap2.cpp)

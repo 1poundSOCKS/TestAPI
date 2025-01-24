@@ -5,7 +5,7 @@
       "name": "(Windows) Launch",
       "type": "cppvsdbg",
       "request": "launch",
-      "program": "${workspaceFolder}/Debug/TestAPI.exe",
+      "program": "${workspaceFolder}/Debug/Login.exe",
       "args": ["http://localhost:9542", "mc", "mc", "m.coburn"],
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}",

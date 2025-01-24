@@ -2,9 +2,8 @@
 
 #pragma warning (disable:4459)
 
-#include "soapspProxy.h"
-#include "sp.nsmap"
-#include "common_defs.h"
+#include "common_soap.h"
+#include "common/common_defs.h"
 
 struct getjob_response
 {
@@ -46,15 +45,17 @@ auto main(int argc, char* argv[]) -> int
 
   std::cout << '\n';
 
-  if( argc != 6 )
+  if( argc != 2 )
   {
     return 0;
   }
 
-  session_info sessionInfo { soap_new(), argv[1] };
-  auth_info authInfo { argv[2], argv[3], argv[4] };
+  auto config = LoadDefaultConfig();
 
-  auto getJobResponse = CallGetJob(sessionInfo, authInfo, argv[5]);
+  session_info sessionInfo { soap_new(), config.url.c_str() };
+  auth_info authInfo { config.databaseUser.c_str(), config.password.c_str(), config.spUser.c_str() };
+
+  auto getJobResponse = CallGetJob(sessionInfo, authInfo, argv[1]);
 
   std::cout << std::string_view("HTTP result: ") << getJobResponse.httpResponse << '\n';
   getJobResponse.apiResponse ? std::cout << std::string_view("API result: ") << *getJobResponse.apiResponse << '\n' : std::cout << std::string_view("API result missing") << '\n';
